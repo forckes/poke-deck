@@ -1,0 +1,250 @@
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id              String    @id
+  name            String
+  username        String?   @unique
+  displayUsername String?
+  email           String
+  emailVerified   Boolean   @default(false)
+  image           String    @default("/profile/default_avatar.png")
+  coins           Int       @default(0)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  lastHourlyRewardAt DateTime?
+  role String?
+	banned Boolean?
+	banReason String?
+	banExpires DateTime? @db.Timestamptz(3)
+  sessions        Session[]
+  accounts        Account[]
+
+  cards             Card[]             @relation("UserCards")
+  sentTrades        Trade[]            @relation("Sender")
+  receivedTrades    Trade[]            @relation("Receiver")
+  userCards         UserCard[]         @relation("UserCards")
+  claimedEvolutions ClaimedEvolution[]
+
+  friendshipsInitiated Friendship[] @relation("UserFriendships")
+  friendshipsReceived  Friendship[] @relation("FriendFriendships")
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  impersonatedBy String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+model Card {
+  id        Int      @id @default(autoincrement())
+  pokemonId Int
+  rarity    Rarity
+
+  instances UserCard[]
+
+  @@map("card")
+  @@unique([pokemonId, rarity])
+  users User[] @relation("UserCards")
+}
+
+model UserCard {
+  id        String   @id @default(cuid())
+
+  cardId    Int
+  card      Card     @relation(fields: [cardId], references: [id])
+
+  ownerId   String?
+  owner     User?     @relation("UserCards", fields: [ownerId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  tradeItems TradeItem[]
+  @@map("user_card")
+}
+
+model Trade {
+  id          String      @id @default(cuid())
+  status      TradeStatus @default(PENDING)
+
+  senderId    String
+  sender      User        @relation("Sender", fields: [senderId], references: [id])
+
+  receiverId  String
+  receiver    User        @relation("Receiver", fields: [receiverId], references: [id])
+
+  items       TradeItem[]
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("trade")
+}
+
+model TradeItem {
+  id        String   @id @default(cuid())
+  tradeId   String
+  trade     Trade    @relation(fields: [tradeId], references: [id], onDelete: Cascade)
+
+  userCardId String
+  userCard   UserCard @relation(fields: [userCardId], references: [id])
+  
+  ownerId   String 
+  
+  @@map("trade_item")
+}
+
+enum Rarity {
+  COMMON
+  EPIC
+  LEGENDARY
+}
+
+enum TradeStatus {
+  PENDING
+  SENDED
+  ACCEPTED
+  DECLINED
+  CANCELLED
+}
+
+enum PackType {
+  COMMON
+  EPIC
+  LEGENDARY
+}
+
+model Pack {
+  id                  String   @id @default(cuid())
+  type                PackType @unique
+  priceInCoins        Int
+
+  commonDropChance    Int
+  epicDropChance      Int
+  legendaryDropChance Int
+
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@map("pack")
+}
+
+model EvolutionReward {
+  id         String   @id @default(cuid())
+  rarity     Rarity   @unique
+  coinReward Int
+
+  createdAt DateTime @default(now())
+
+  @@map("evolution_reward")
+}
+
+model ClaimedEvolution {
+  id      String @id @default(cuid())
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chainId Int
+  rarity  Rarity
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, chainId, rarity])
+  @@map("claimed_evolution")
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+}
+
+model Friendship {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation("UserFriendships", fields: [userId], references: [id], onDelete: Cascade)
+
+  friendId String
+  friend   User   @relation("FriendFriendships", fields: [friendId], references: [id], onDelete: Cascade)
+
+  status FriendshipStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, friendId])
+  @@map("friendship")
+}
+
+model CrashGameRound {
+  id         String   @id @default(cuid())
+  crashPoint Float
+  createdAt  DateTime @default(now())
+
+  @@map("crash_game_round")
+}
+
+model CrashGameBet {
+  id        String   @id @default(cuid())
+  roundId   String
+  userId    String
+  username  String
+  betAmount Int
+  cashOutAt Float?
+  winnings  Int?
+  createdAt DateTime @default(now())
+
+  @@map("crash_game_bet")
+}
