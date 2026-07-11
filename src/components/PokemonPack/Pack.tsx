@@ -5,7 +5,7 @@ import { PokemonCard } from '../PokemonCard/PokemonCard'
 import { PackType } from '@/generated/enums'
 import { VacuumParticles } from '../ParticleEffects/VacuumParticles'
 import Image from 'next/image'
-import { FastForward, RefreshCw, Share2, X, Zap } from 'lucide-react'
+import { FastForward, Loader2, RefreshCw, Share2, X, Zap } from 'lucide-react'
 import { usePokemonPack } from './hooks/usePokemonPack'
 
 type Props = {
@@ -59,24 +59,30 @@ export default function PackOpener({ state, status, functions }: Props) {
 							/>
 
 							{state.step !== 'opening' &&
-								state.packPrices[state.selectedPackType] !== undefined &&
-								state.packPrices[state.selectedPackType] !== null && (
-									<div className='absolute inset-0 flex items-center justify-center pointer-events-none fade-in'>
-										<div className='bg-primary/50 backdrop-blur-md rounded-2xl px-6 py-4 flex flex-col items-center justify-center border border-white/20 shadow-xl'>
-											<p className='text-white font-black text-3xl mb-1 drop-shadow-md'>
-												{state.packPrices[state.selectedPackType]}
-											</p>
-											<Image
-												src='/profile/coin.png'
-												alt='Coins'
-												className='w-10 h-10 drop-shadow-md'
-												draggable={false}
-												width={40}
-												height={40}
-											/>
-										</div>
+							state.packPrices[state.selectedPackType] !== undefined &&
+							state.packPrices[state.selectedPackType] !== null ? (
+								<div className='absolute inset-0 flex items-center justify-center pointer-events-none fade-in'>
+									<div className='bg-primary/50 backdrop-blur-md rounded-2xl px-6 py-4 flex flex-col items-center justify-center border border-white/20 shadow-xl'>
+										<p className='text-white font-black text-3xl mb-1 drop-shadow-md'>
+											{state.packPrices[state.selectedPackType]}
+										</p>
+										<Image
+											src='/profile/coin.png'
+											alt='Coins'
+											className='w-10 h-10 drop-shadow-md'
+											draggable={false}
+											width={40}
+											height={40}
+										/>
 									</div>
-								)}
+								</div>
+							) : (
+								<div className='absolute inset-0 flex items-center justify-center pointer-events-none fade-in'>
+									<div className='bg-primary/50 backdrop-blur-md rounded-2xl px-6 py-4 flex flex-col items-center justify-center border border-white/20 shadow-xl'>
+										<Loader2 className='animate-spin' />
+									</div>
+								</div>
+							)}
 						</div>
 					</button>
 

@@ -90,9 +90,12 @@ model Verification {
 }
 
 model Card {
-  id        Int      @id @default(autoincrement())
-  pokemonId Int
-  rarity    Rarity
+  id          Int      @id @default(autoincrement())
+  pokemonId   Int
+  rarity      Rarity
+  name        String   @default("")
+  types       String[]
+  primaryType String   @default("")
 
   instances UserCard[]
 

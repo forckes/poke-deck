@@ -153,7 +153,10 @@ export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[k
 export const CardScalarFieldEnum = {
   id: 'id',
   pokemonId: 'pokemonId',
-  rarity: 'rarity'
+  rarity: 'rarity',
+  name: 'name',
+  types: 'types',
+  primaryType: 'primaryType'
 } as const
 
 export type CardScalarFieldEnum = (typeof CardScalarFieldEnum)[keyof typeof CardScalarFieldEnum]

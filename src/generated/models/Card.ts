@@ -40,18 +40,25 @@ export type CardMinAggregateOutputType = {
   id: number | null
   pokemonId: number | null
   rarity: $Enums.Rarity | null
+  name: string | null
+  primaryType: string | null
 }
 
 export type CardMaxAggregateOutputType = {
   id: number | null
   pokemonId: number | null
   rarity: $Enums.Rarity | null
+  name: string | null
+  primaryType: string | null
 }
 
 export type CardCountAggregateOutputType = {
   id: number
   pokemonId: number
   rarity: number
+  name: number
+  types: number
+  primaryType: number
   _all: number
 }
 
@@ -70,18 +77,25 @@ export type CardMinAggregateInputType = {
   id?: true
   pokemonId?: true
   rarity?: true
+  name?: true
+  primaryType?: true
 }
 
 export type CardMaxAggregateInputType = {
   id?: true
   pokemonId?: true
   rarity?: true
+  name?: true
+  primaryType?: true
 }
 
 export type CardCountAggregateInputType = {
   id?: true
   pokemonId?: true
   rarity?: true
+  name?: true
+  types?: true
+  primaryType?: true
   _all?: true
 }
 
@@ -175,6 +189,9 @@ export type CardGroupByOutputType = {
   id: number
   pokemonId: number
   rarity: $Enums.Rarity
+  name: string
+  types: string[]
+  primaryType: string
   _count: CardCountAggregateOutputType | null
   _avg: CardAvgAggregateOutputType | null
   _sum: CardSumAggregateOutputType | null
@@ -204,6 +221,9 @@ export type CardWhereInput = {
   id?: Prisma.IntFilter<"Card"> | number
   pokemonId?: Prisma.IntFilter<"Card"> | number
   rarity?: Prisma.EnumRarityFilter<"Card"> | $Enums.Rarity
+  name?: Prisma.StringFilter<"Card"> | string
+  types?: Prisma.StringNullableListFilter<"Card">
+  primaryType?: Prisma.StringFilter<"Card"> | string
   instances?: Prisma.UserCardListRelationFilter
   users?: Prisma.UserListRelationFilter
 }
@@ -212,6 +232,9 @@ export type CardOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   pokemonId?: Prisma.SortOrder
   rarity?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  types?: Prisma.SortOrder
+  primaryType?: Prisma.SortOrder
   instances?: Prisma.UserCardOrderByRelationAggregateInput
   users?: Prisma.UserOrderByRelationAggregateInput
 }
@@ -224,6 +247,9 @@ export type CardWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CardWhereInput | Prisma.CardWhereInput[]
   pokemonId?: Prisma.IntFilter<"Card"> | number
   rarity?: Prisma.EnumRarityFilter<"Card"> | $Enums.Rarity
+  name?: Prisma.StringFilter<"Card"> | string
+  types?: Prisma.StringNullableListFilter<"Card">
+  primaryType?: Prisma.StringFilter<"Card"> | string
   instances?: Prisma.UserCardListRelationFilter
   users?: Prisma.UserListRelationFilter
 }, "id" | "pokemonId_rarity">
@@ -232,6 +258,9 @@ export type CardOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   pokemonId?: Prisma.SortOrder
   rarity?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  types?: Prisma.SortOrder
+  primaryType?: Prisma.SortOrder
   _count?: Prisma.CardCountOrderByAggregateInput
   _avg?: Prisma.CardAvgOrderByAggregateInput
   _max?: Prisma.CardMaxOrderByAggregateInput
@@ -246,11 +275,17 @@ export type CardScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Card"> | number
   pokemonId?: Prisma.IntWithAggregatesFilter<"Card"> | number
   rarity?: Prisma.EnumRarityWithAggregatesFilter<"Card"> | $Enums.Rarity
+  name?: Prisma.StringWithAggregatesFilter<"Card"> | string
+  types?: Prisma.StringNullableListFilter<"Card">
+  primaryType?: Prisma.StringWithAggregatesFilter<"Card"> | string
 }
 
 export type CardCreateInput = {
   pokemonId: number
   rarity: $Enums.Rarity
+  name?: string
+  types?: Prisma.CardCreatetypesInput | string[]
+  primaryType?: string
   instances?: Prisma.UserCardCreateNestedManyWithoutCardInput
   users?: Prisma.UserCreateNestedManyWithoutCardsInput
 }
@@ -259,6 +294,9 @@ export type CardUncheckedCreateInput = {
   id?: number
   pokemonId: number
   rarity: $Enums.Rarity
+  name?: string
+  types?: Prisma.CardCreatetypesInput | string[]
+  primaryType?: string
   instances?: Prisma.UserCardUncheckedCreateNestedManyWithoutCardInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCardsInput
 }
@@ -266,6 +304,9 @@ export type CardUncheckedCreateInput = {
 export type CardUpdateInput = {
   pokemonId?: Prisma.IntFieldUpdateOperationsInput | number
   rarity?: Prisma.EnumRarityFieldUpdateOperationsInput | $Enums.Rarity
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  types?: Prisma.CardUpdatetypesInput | string[]
+  primaryType?: Prisma.StringFieldUpdateOperationsInput | string
   instances?: Prisma.UserCardUpdateManyWithoutCardNestedInput
   users?: Prisma.UserUpdateManyWithoutCardsNestedInput
 }
@@ -274,6 +315,9 @@ export type CardUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   pokemonId?: Prisma.IntFieldUpdateOperationsInput | number
   rarity?: Prisma.EnumRarityFieldUpdateOperationsInput | $Enums.Rarity
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  types?: Prisma.CardUpdatetypesInput | string[]
+  primaryType?: Prisma.StringFieldUpdateOperationsInput | string
   instances?: Prisma.UserCardUncheckedUpdateManyWithoutCardNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCardsNestedInput
 }
@@ -282,17 +326,26 @@ export type CardCreateManyInput = {
   id?: number
   pokemonId: number
   rarity: $Enums.Rarity
+  name?: string
+  types?: Prisma.CardCreatetypesInput | string[]
+  primaryType?: string
 }
 
 export type CardUpdateManyMutationInput = {
   pokemonId?: Prisma.IntFieldUpdateOperationsInput | number
   rarity?: Prisma.EnumRarityFieldUpdateOperationsInput | $Enums.Rarity
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  types?: Prisma.CardUpdatetypesInput | string[]
+  primaryType?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type CardUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   pokemonId?: Prisma.IntFieldUpdateOperationsInput | number
   rarity?: Prisma.EnumRarityFieldUpdateOperationsInput | $Enums.Rarity
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  types?: Prisma.CardUpdatetypesInput | string[]
+  primaryType?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type CardListRelationFilter = {
@@ -305,6 +358,14 @@ export type CardOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type CardPokemonIdRarityCompoundUniqueInput = {
   pokemonId: number
   rarity: $Enums.Rarity
@@ -314,6 +375,9 @@ export type CardCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   pokemonId?: Prisma.SortOrder
   rarity?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  types?: Prisma.SortOrder
+  primaryType?: Prisma.SortOrder
 }
 
 export type CardAvgOrderByAggregateInput = {
@@ -325,12 +389,16 @@ export type CardMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   pokemonId?: Prisma.SortOrder
   rarity?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  primaryType?: Prisma.SortOrder
 }
 
 export type CardMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   pokemonId?: Prisma.SortOrder
   rarity?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  primaryType?: Prisma.SortOrder
 }
 
 export type CardSumOrderByAggregateInput = {
@@ -381,8 +449,17 @@ export type CardUncheckedUpdateManyWithoutUsersNestedInput = {
   deleteMany?: Prisma.CardScalarWhereInput | Prisma.CardScalarWhereInput[]
 }
 
+export type CardCreatetypesInput = {
+  set: string[]
+}
+
 export type EnumRarityFieldUpdateOperationsInput = {
   set?: $Enums.Rarity
+}
+
+export type CardUpdatetypesInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type CardCreateNestedOneWithoutInstancesInput = {
@@ -402,6 +479,9 @@ export type CardUpdateOneRequiredWithoutInstancesNestedInput = {
 export type CardCreateWithoutUsersInput = {
   pokemonId: number
   rarity: $Enums.Rarity
+  name?: string
+  types?: Prisma.CardCreatetypesInput | string[]
+  primaryType?: string
   instances?: Prisma.UserCardCreateNestedManyWithoutCardInput
 }
 
@@ -409,6 +489,9 @@ export type CardUncheckedCreateWithoutUsersInput = {
   id?: number
   pokemonId: number
   rarity: $Enums.Rarity
+  name?: string
+  types?: Prisma.CardCreatetypesInput | string[]
+  primaryType?: string
   instances?: Prisma.UserCardUncheckedCreateNestedManyWithoutCardInput
 }
 
@@ -440,11 +523,17 @@ export type CardScalarWhereInput = {
   id?: Prisma.IntFilter<"Card"> | number
   pokemonId?: Prisma.IntFilter<"Card"> | number
   rarity?: Prisma.EnumRarityFilter<"Card"> | $Enums.Rarity
+  name?: Prisma.StringFilter<"Card"> | string
+  types?: Prisma.StringNullableListFilter<"Card">
+  primaryType?: Prisma.StringFilter<"Card"> | string
 }
 
 export type CardCreateWithoutInstancesInput = {
   pokemonId: number
   rarity: $Enums.Rarity
+  name?: string
+  types?: Prisma.CardCreatetypesInput | string[]
+  primaryType?: string
   users?: Prisma.UserCreateNestedManyWithoutCardsInput
 }
 
@@ -452,6 +541,9 @@ export type CardUncheckedCreateWithoutInstancesInput = {
   id?: number
   pokemonId: number
   rarity: $Enums.Rarity
+  name?: string
+  types?: Prisma.CardCreatetypesInput | string[]
+  primaryType?: string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCardsInput
 }
 
@@ -474,6 +566,9 @@ export type CardUpdateToOneWithWhereWithoutInstancesInput = {
 export type CardUpdateWithoutInstancesInput = {
   pokemonId?: Prisma.IntFieldUpdateOperationsInput | number
   rarity?: Prisma.EnumRarityFieldUpdateOperationsInput | $Enums.Rarity
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  types?: Prisma.CardUpdatetypesInput | string[]
+  primaryType?: Prisma.StringFieldUpdateOperationsInput | string
   users?: Prisma.UserUpdateManyWithoutCardsNestedInput
 }
 
@@ -481,12 +576,18 @@ export type CardUncheckedUpdateWithoutInstancesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   pokemonId?: Prisma.IntFieldUpdateOperationsInput | number
   rarity?: Prisma.EnumRarityFieldUpdateOperationsInput | $Enums.Rarity
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  types?: Prisma.CardUpdatetypesInput | string[]
+  primaryType?: Prisma.StringFieldUpdateOperationsInput | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCardsNestedInput
 }
 
 export type CardUpdateWithoutUsersInput = {
   pokemonId?: Prisma.IntFieldUpdateOperationsInput | number
   rarity?: Prisma.EnumRarityFieldUpdateOperationsInput | $Enums.Rarity
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  types?: Prisma.CardUpdatetypesInput | string[]
+  primaryType?: Prisma.StringFieldUpdateOperationsInput | string
   instances?: Prisma.UserCardUpdateManyWithoutCardNestedInput
 }
 
@@ -494,6 +595,9 @@ export type CardUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   pokemonId?: Prisma.IntFieldUpdateOperationsInput | number
   rarity?: Prisma.EnumRarityFieldUpdateOperationsInput | $Enums.Rarity
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  types?: Prisma.CardUpdatetypesInput | string[]
+  primaryType?: Prisma.StringFieldUpdateOperationsInput | string
   instances?: Prisma.UserCardUncheckedUpdateManyWithoutCardNestedInput
 }
 
@@ -501,6 +605,9 @@ export type CardUncheckedUpdateManyWithoutUsersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   pokemonId?: Prisma.IntFieldUpdateOperationsInput | number
   rarity?: Prisma.EnumRarityFieldUpdateOperationsInput | $Enums.Rarity
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  types?: Prisma.CardUpdatetypesInput | string[]
+  primaryType?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -547,6 +654,9 @@ export type CardSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   pokemonId?: boolean
   rarity?: boolean
+  name?: boolean
+  types?: boolean
+  primaryType?: boolean
   instances?: boolean | Prisma.Card$instancesArgs<ExtArgs>
   users?: boolean | Prisma.Card$usersArgs<ExtArgs>
   _count?: boolean | Prisma.CardCountOutputTypeDefaultArgs<ExtArgs>
@@ -556,21 +666,30 @@ export type CardSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   pokemonId?: boolean
   rarity?: boolean
+  name?: boolean
+  types?: boolean
+  primaryType?: boolean
 }, ExtArgs["result"]["card"]>
 
 export type CardSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   pokemonId?: boolean
   rarity?: boolean
+  name?: boolean
+  types?: boolean
+  primaryType?: boolean
 }, ExtArgs["result"]["card"]>
 
 export type CardSelectScalar = {
   id?: boolean
   pokemonId?: boolean
   rarity?: boolean
+  name?: boolean
+  types?: boolean
+  primaryType?: boolean
 }
 
-export type CardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "pokemonId" | "rarity", ExtArgs["result"]["card"]>
+export type CardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "pokemonId" | "rarity" | "name" | "types" | "primaryType", ExtArgs["result"]["card"]>
 export type CardInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   instances?: boolean | Prisma.Card$instancesArgs<ExtArgs>
   users?: boolean | Prisma.Card$usersArgs<ExtArgs>
@@ -589,6 +708,9 @@ export type $CardPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: number
     pokemonId: number
     rarity: $Enums.Rarity
+    name: string
+    types: string[]
+    primaryType: string
   }, ExtArgs["result"]["card"]>
   composites: {}
 }
@@ -1017,6 +1139,9 @@ export interface CardFieldRefs {
   readonly id: Prisma.FieldRef<"Card", 'Int'>
   readonly pokemonId: Prisma.FieldRef<"Card", 'Int'>
   readonly rarity: Prisma.FieldRef<"Card", 'Rarity'>
+  readonly name: Prisma.FieldRef<"Card", 'String'>
+  readonly types: Prisma.FieldRef<"Card", 'String[]'>
+  readonly primaryType: Prisma.FieldRef<"Card", 'String'>
 }
     
 

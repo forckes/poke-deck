@@ -46,7 +46,7 @@ const PokemonCardList = ({ targetUserId, scope }: Props) => {
 		if (!lastItem) return
 
 		if (
-			lastItem.index >= rows.length - 1 &&
+			lastItem.index >= rows.length - 1 - 3 &&
 			status.hasNextPage &&
 			!status.isFetchingNextPage &&
 			status.isSuccess

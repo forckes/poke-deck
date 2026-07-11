@@ -5,12 +5,17 @@ import { useAllTrades } from './_hooks/useAllTrades'
 import { TradeItem } from '@/components/Trade/TradeItem'
 import EmptyStateMessage from '@/components/EmptyStateMessage'
 import NotificationPing from '@/components/NotificationPing'
+import { Loader2 } from 'lucide-react'
 
 const TradesPage = () => {
 	const { state, status } = useAllTrades()
 
 	if (status.isSentLoading || status.isReceivedLoading || status.isNewLoading) {
-		return <div>Loading...</div>
+		return (
+			<div className='flex items-center justify-center min-h-[calc(100vh-60px)]'>
+				<Loader2 className='animate-spin size-8 text-primary' />
+			</div>
+		)
 	}
 
 	if (status.isSentError || status.isReceivedError || status.isNewError) {
@@ -19,16 +24,16 @@ const TradesPage = () => {
 
 	return (
 		<div className='flex flex-col items-center h-screen w-full max-w-5xl mx-auto mt-20 px-4'>
-			<div className='flex flex-col items-center w-full bg-primary/10 p-1 py-8 sm:p-8 rounded-2xl border shadow-sm min-h-125'>
+			<div className='flex flex-col items-center w-full bg-primary/10 p-8 rounded-2xl border shadow-sm min-h-125'>
 				<h1 className='text-4xl md:text-5xl font-extrabold tracking-tight text-primary/90 text-center drop-shadow-sm'>
 					Your trades
 				</h1>
 
 				<Tabs
 					defaultValue='new-trades'
-					className='flex flex-col w-full md:w-2/3 gap-21 sm:gap-0'
+					className='flex flex-col w-full md:w-2/3 mt-8'
 				>
-					<TabsList className='px-0 mx-auto w-fit flex-wrap h-16! sm:h-10! bg-primary/0 sm:bg-muted sm:mb-0'>
+					<TabsList className='px-0 mx-auto w-fit'>
 						<TabsTrigger
 							defaultChecked
 							className='text-md p-4'

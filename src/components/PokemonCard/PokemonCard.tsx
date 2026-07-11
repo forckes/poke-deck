@@ -6,11 +6,16 @@ import { getPokemonTypeStyle } from '@/utils/helpers/getPokemonTypeStyle'
 import PokemonMoveItem from './PokemonMoveItem'
 import { PokemonCardProps, PokemonMove } from '@/types/pokemon'
 import { rarityColors } from '@/constants/pokemonTypes'
+import { useState } from 'react'
+import { Loader2 } from 'lucide-react'
 
 import('hover-tilt/web-component')
 
 export function PokemonCard({ pokemonData, className }: PokemonCardProps) {
+	const [isImageLoading, setIsImageLoading] = useState(true)
+
 	if (!pokemonData) return null
+
 	const typeStyle = getPokemonTypeStyle(pokemonData.types, pokemonData.rarity)
 
 	const rarityStyle =
@@ -67,14 +72,23 @@ export function PokemonCard({ pokemonData, className }: PokemonCardProps) {
 								</div>
 							</div>
 						</div>
+
 						<div className='relative w-65 h-65 z-10 mt-2'>
+							{isImageLoading && (
+								<div className='absolute inset-0 flex items-center justify-center z-20'>
+									<Loader2 className='animate-spin' />
+								</div>
+							)}
 							<Image
+								key={pokemonData.image}
 								src={pokemonData.image}
 								alt={pokemonData.name}
 								className='object-contain'
 								fill
 								priority
 								sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+								onLoadStart={() => setIsImageLoading(true)}
+								onLoad={() => setIsImageLoading(false)}
 							/>
 						</div>
 						<div className='mt-6 flex flex-col justify-center items-start w-full gap-4 mb-2'>

@@ -33,7 +33,7 @@ export const usePokemonCardList = (
 				userId!,
 				field,
 				order,
-				9,
+				12,
 				pageParam as number,
 				searchQuery,
 				filters,
