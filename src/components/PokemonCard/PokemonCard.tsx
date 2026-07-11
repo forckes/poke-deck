@@ -83,7 +83,9 @@ export function PokemonCard({ pokemonData, className }: PokemonCardProps) {
 								key={pokemonData.image}
 								src={pokemonData.image}
 								alt={pokemonData.name}
-								className='object-contain'
+								className={`object-contain transition-opacity duration-500 ease-in-out ${
+									isImageLoading ? 'opacity-0' : 'opacity-100'
+								}`}
 								fill
 								priority
 								sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
