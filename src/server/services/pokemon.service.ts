@@ -148,14 +148,14 @@ export const pokemonService = {
 				where: userCardWhereCondition,
 				orderBy:
 					field === 'date' || field === 'createdAt'
-						? { createdAt: order }
+						? [{ createdAt: order }, { id: 'asc' }]
 						: field === 'name'
-							? { card: { name: order } }
+							? [{ card: { name: order } }, { id: 'asc' }]
 							: field === 'rarity'
-								? { card: { rarity: order } }
+								? [{ card: { rarity: order } }, { id: 'asc' }]
 								: field === 'type'
-									? { card: { primaryType: order } }
-									: { card: { pokemonId: order || 'asc' } },
+									? [{ card: { primaryType: order } }, { id: 'asc' }]
+									: [{ card: { pokemonId: order || 'asc' } }, { id: 'asc' }],
 				take: limit,
 				skip: pageParam,
 				include: {
@@ -173,12 +173,12 @@ export const pokemonService = {
 				where: whereCondition,
 				orderBy:
 					field === 'name'
-						? { name: order }
+						? [{ name: order }, { id: 'asc' }]
 						: field === 'rarity'
-							? { rarity: order }
+							? [{ rarity: order }, { id: 'asc' }]
 							: field === 'type'
-								? { primaryType: order }
-								: { pokemonId: order || 'asc' },
+								? [{ primaryType: order }, { id: 'asc' }]
+								: [{ pokemonId: order || 'asc' }, { id: 'asc' }],
 				take: limit,
 				skip: pageParam,
 			})
