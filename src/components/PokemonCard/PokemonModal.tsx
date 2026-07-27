@@ -98,18 +98,20 @@ export function PokemonModal() {
 									<div className='flex justify-between items-start'>
 										<div className='flex flex-col items-start justify-between'>
 											<div className='flex justify-between items-start gap-6 mt-2'>
-												<div className='flex flex-col items-start justidy-center'>
+												<div className='flex flex-col items-start justify-center'>
 													<div className='relative w-20 h-20 flex items-center justify-center'>
 														<Image
+															key={state.selectedModalCard.name}
 															src={state.pokemonData.data.gif}
 															alt={state.selectedModalCard.name}
 															fill
-															className='object-contain'
+															unoptimized
+															className='object-contain transition-opacity duration-500 ease-in-out'
 														/>
 													</div>
 
 													{state.pokemonData.data.heldItems.length > 0 && (
-														<div className='flex jusitfy-start gap-1 items-center'>
+														<div className='flex justify-start gap-1 items-center'>
 															<h3 className='font-bold uppercase text-xs text-gray-500'>
 																Items
 															</h3>

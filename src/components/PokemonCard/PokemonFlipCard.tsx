@@ -21,7 +21,7 @@ function PokemonFlipCard({ isFlipped, children, isLoading, className }: Props) {
 			return () => clearTimeout(timer)
 		} else {
 			// eslint-disable-next-line react-hooks/set-state-in-effect
-			setLocalFlipped(prev => (prev ? false : prev))
+			setLocalFlipped(false)
 		}
 
 		return () => {
@@ -32,11 +32,13 @@ function PokemonFlipCard({ isFlipped, children, isLoading, className }: Props) {
 	return (
 		<div className={`perspective-1000 w-77.5 h-109.5 ${className}`}>
 			<div
-				className={`relative w-full h-full transition-all duration-700 preserve-3d ${
-					localFlipped ? 'rotate-y-180' : ''
+				className={`relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] ${
+					localFlipped
+						? '[transform:rotateY(180deg)]'
+						: '[transform:rotateY(0deg)]'
 				}`}
 			>
-				<div className='absolute inset-0 backface-hidden z-20'>
+				<div className='absolute inset-0 [backface-visibility:hidden] [WebkitBackfaceVisibility:hidden] z-10 [transform:translateZ(1px)]'>
 					<PokemonCardBack />
 					{isLoading && (
 						<>
@@ -48,11 +50,12 @@ function PokemonFlipCard({ isFlipped, children, isLoading, className }: Props) {
 					)}
 				</div>
 
-				<div className='absolute inset-0 backface-hidden rotate-y-180 z-10'>
+				<div className='absolute inset-0 [backface-visibility:hidden] [WebkitBackfaceVisibility:hidden] z-20 [transform:rotateY(180deg)_translateZ(1px)]'>
 					{children}
 				</div>
 			</div>
 		</div>
 	)
 }
+
 export default PokemonFlipCard

@@ -30,6 +30,12 @@ export function PokemonCard({ pokemonData, className }: PokemonCardProps) {
 				scale-factor={rarityStyle.scale}
 				glare-intensity={rarityStyle.glare}
 				class={`w-77.5 [&::part(container)]:rounded-xl z-100 transition-all ${rarityStyle.class} ${className}`}
+				style={{
+					backfaceVisibility: 'hidden',
+					WebkitBackfaceVisibility: 'hidden',
+					transformStyle: 'preserve-3d',
+					WebkitTransformStyle: 'preserve-3d',
+				}}
 			>
 				<div
 					className={`relative rounded-xl flex items-center gap-3 border-8 ${typeStyle.border} overflow-hidden ${typeStyle.text === 'light' ? 'text-white text-outline-black' : 'text-black text-outline-white'}
