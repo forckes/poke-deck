@@ -10,6 +10,8 @@ import TradeButton from '@/components/Trade/TradeButton'
 import PokemonCardsContent from '@/components/PokemonCardsContent/PokemonCardsContent'
 import { getUserProfileData } from './_hooks/getUserProfileData'
 import StatCard from '@/components/Profile/StatCard'
+import { AvatarUploader } from '@/components/Profile/AvatarUploader'
+import { ProfileBanner } from '@/components/Profile/ProfileBanner'
 
 export default async function ProfilePage(props: {
 	params: Promise<{ username: string }>
@@ -19,31 +21,46 @@ export default async function ProfilePage(props: {
 	return (
 		<div className='flex flex-col items-center w-full max-w-5xl mx-auto mt-10 px-4 mb-20'>
 			<div className='w-full rounded-[2.5rem] overflow-hidden shadow-sm bg-card border border-border relative'>
-				<div className="h-44 md:h-52 w-full bg-[url('/profile/profile_background.jpg')] bg-repeat relative overflow-hidden">
-					<div className='absolute inset-0 bg-black/20'></div>
-
-					<div className='absolute right-10 top-1/2 -translate-y-1/2 opacity-90 pointer-events-none'>
-						<div className='w-24 h-24 rounded-full border-[6px] border-white relative flex items-center justify-center'>
-							<div className='w-full h-1.5 bg-white absolute top-1/2 -translate-y-1/2'></div>
-							<div className='w-8 h-8 rounded-full border-[6px] border-white bg-transparent z-10'></div>
-						</div>
-					</div>
-				</div>
+				<ProfileBanner
+					bannerColor={state.targetUser.bannerColor}
+					isCurrentUser={state.isCurrentUser}
+				/>
 
 				<div className='px-6 md:px-10 pb-10 -mt-16 md:-mt-20 relative z-10'>
 					<div className='flex flex-col md:flex-row md:items-end justify-between gap-6'>
 						<div className='flex flex-col md:flex-row items-center md:items-end gap-6'>
-							<div className='relative group'>
-								<div className='absolute -inset-1 bg-linear-to-tr from-primary to-accent rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000'></div>
-								<Image
-									src={state.targetUser.image || '/profile/default_avatar.png'}
-									alt={state.targetUser.name}
-									width={160}
-									height={160}
-									className='relative rounded-full border-8 border-card object-cover shadow-2xl w-32 h-32 md:w-40 md:h-40'
+							{state.isCurrentUser ? (
+								<AvatarUploader
+									bannerColor={state.targetUser.bannerColor}
+									currentImage={state.targetUser.image}
 								/>
-								<div className='absolute bottom-4 right-4 w-6 h-6 bg-green-500 border-4 border-card rounded-full shadow-lg'></div>
-							</div>
+							) : (
+								<div className='relative group'>
+									<div
+										style={
+											{
+												'--banner-color': state.targetUser.bannerColor,
+											} as React.CSSProperties
+										}
+										className={`absolute -inset-1 bg-linear-to-tr from-(--banner-color) to-[color-mix(in_srgb,var(--banner-color)_20%,transparent)] rounded-full blur-xl opacity-25 group-hover:opacity-90 transition duration-1000`}
+									></div>
+									<Image
+										style={
+											{
+												'--banner-color': state.targetUser.bannerColor,
+											} as React.CSSProperties
+										}
+										src={
+											state.targetUser.image || '/profile/default_avatar.png'
+										}
+										alt={state.targetUser.name}
+										width={160}
+										height={160}
+										className='relative rounded-full border-8 border-(--banner-color,#ffffff) object-cover shadow-2xl w-32 h-32 md:w-40 md:h-40'
+									/>
+									<div className='absolute bottom-4 right-4 w-6 h-6 bg-green-500 border-4 border-card rounded-full shadow-lg'></div>
+								</div>
+							)}
 
 							<div className='mt-4 text-center md:text-left'>
 								<h1 className='text-3xl md:text-4xl font-black text-foreground tracking-tight'>
@@ -83,7 +100,7 @@ export default async function ProfilePage(props: {
 						</div>
 					</div>
 
-					<div className='grid grid-cols-2 md:grid-cols-5 gap-4 mt-12'>
+					<div className='grid grid-cols-2 md:grid-cols-5 gap-4 mt-4'>
 						<StatCard label='CARDS' value={state.stats.totalCards} />
 						<StatCard
 							label='COMMON'

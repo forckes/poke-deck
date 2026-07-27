@@ -5,6 +5,7 @@ import { headers } from 'next/headers'
 import { auth } from '../auth'
 import { userService } from '@/server/services/user.service'
 import { revalidatePath } from 'next/cache'
+import prisma from '../prisma'
 
 export async function updateProfileAction(data: {
 	name?: string
@@ -32,6 +33,21 @@ export async function updateProfileAction(data: {
 			error: message,
 		}
 	}
+}
+
+export async function updateBannerColorAction(color: string) {
+	const session = await auth.api.getSession({ headers: await headers() })
+	if (!session?.user?.id) {
+		throw new Error('Unauthorized')
+	}
+
+	await prisma.user.update({
+		where: { id: session.user.id },
+		data: { bannerColor: color },
+	})
+
+	revalidatePath('/user/[username]', 'page')
+	return { success: true }
 }
 
 export async function searchUsersAction(query: string, limit: number = 5) {

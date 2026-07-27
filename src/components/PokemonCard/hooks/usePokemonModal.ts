@@ -45,6 +45,10 @@ export const usePokemonModal = () => {
 			typeStyle,
 		},
 		status: { isLoading, isError, isPending },
-		functions: { startTransition, handleClose, handleModalOpen },
+		functions: {
+			startTransition,
+			handleClose,
+			handleModalOpen,
+		},
 	}
 }

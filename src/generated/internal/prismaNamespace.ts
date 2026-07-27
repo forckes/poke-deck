@@ -1500,6 +1500,7 @@ export const UserScalarFieldEnum = {
   email: 'email',
   emailVerified: 'emailVerified',
   image: 'image',
+  bannerColor: 'bannerColor',
   coins: 'coins',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',

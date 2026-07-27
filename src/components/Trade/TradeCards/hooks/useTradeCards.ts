@@ -160,8 +160,11 @@ export const useTradeCards = () => {
 		if (res.success) {
 			toast.success('Trade was successfully sent')
 			localStorage.removeItem(`trade_${tradeId}`)
-			await queryClient.invalidateQueries({ queryKey: ['trades'] })
-			await queryClient.invalidateQueries({ queryKey: ['pending-requests'] })
+			await Promise.all([
+				queryClient.invalidateQueries({ queryKey: ['new-trades'] }),
+				queryClient.invalidateQueries({ queryKey: ['received-trades'] }),
+				queryClient.invalidateQueries({ queryKey: ['sent-trades'] }),
+			])
 			router.push('/trades')
 		} else {
 			toast.error('Error while sending trade')
@@ -174,9 +177,12 @@ export const useTradeCards = () => {
 		const res = await acceptTradeAction(tradeId)
 		if (res.success) {
 			toast.success('Trade successfully accepted')
-			await queryClient.invalidateQueries({ queryKey: ['new-trades'] })
-			await queryClient.invalidateQueries({ queryKey: ['pending-requests'] })
-			await queryClient.invalidateQueries({ queryKey: ['user-cards'] })
+			await Promise.all([
+				queryClient.invalidateQueries({ queryKey: ['new-trades'] }),
+				queryClient.invalidateQueries({ queryKey: ['received-trades'] }),
+				queryClient.invalidateQueries({ queryKey: ['sent-trades'] }),
+				queryClient.invalidateQueries({ queryKey: ['user-cards'] }),
+			])
 			router.push('/trades')
 			router.refresh()
 		} else {
@@ -190,8 +196,11 @@ export const useTradeCards = () => {
 		const res = await declineTradeAction(tradeId)
 		if (res.success) {
 			toast.success('Trade successfully declined')
-			await queryClient.invalidateQueries({ queryKey: ['trades'] })
-			await queryClient.invalidateQueries({ queryKey: ['pending-requests'] })
+			await Promise.all([
+				queryClient.invalidateQueries({ queryKey: ['new-trades'] }),
+				queryClient.invalidateQueries({ queryKey: ['received-trades'] }),
+				queryClient.invalidateQueries({ queryKey: ['sent-trades'] }),
+			])
 			router.push('/trades')
 		} else {
 			toast.error('Error while declining trade')

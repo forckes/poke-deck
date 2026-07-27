@@ -42,6 +42,7 @@ export type UserMinAggregateOutputType = {
   email: string | null
   emailVerified: boolean | null
   image: string | null
+  bannerColor: string | null
   coins: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -60,6 +61,7 @@ export type UserMaxAggregateOutputType = {
   email: string | null
   emailVerified: boolean | null
   image: string | null
+  bannerColor: string | null
   coins: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -78,6 +80,7 @@ export type UserCountAggregateOutputType = {
   email: number
   emailVerified: number
   image: number
+  bannerColor: number
   coins: number
   createdAt: number
   updatedAt: number
@@ -106,6 +109,7 @@ export type UserMinAggregateInputType = {
   email?: true
   emailVerified?: true
   image?: true
+  bannerColor?: true
   coins?: true
   createdAt?: true
   updatedAt?: true
@@ -124,6 +128,7 @@ export type UserMaxAggregateInputType = {
   email?: true
   emailVerified?: true
   image?: true
+  bannerColor?: true
   coins?: true
   createdAt?: true
   updatedAt?: true
@@ -142,6 +147,7 @@ export type UserCountAggregateInputType = {
   email?: true
   emailVerified?: true
   image?: true
+  bannerColor?: true
   coins?: true
   createdAt?: true
   updatedAt?: true
@@ -247,6 +253,7 @@ export type UserGroupByOutputType = {
   email: string
   emailVerified: boolean
   image: string
+  bannerColor: string
   coins: number
   createdAt: Date
   updatedAt: Date
@@ -288,6 +295,7 @@ export type UserWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringFilter<"User"> | string
+  bannerColor?: Prisma.StringFilter<"User"> | string
   coins?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -315,6 +323,7 @@ export type UserOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  bannerColor?: Prisma.SortOrder
   coins?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -345,6 +354,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   displayUsername?: Prisma.StringNullableFilter<"User"> | string | null
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringFilter<"User"> | string
+  bannerColor?: Prisma.StringFilter<"User"> | string
   coins?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -372,6 +382,7 @@ export type UserOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  bannerColor?: Prisma.SortOrder
   coins?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -398,6 +409,7 @@ export type UserScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   image?: Prisma.StringWithAggregatesFilter<"User"> | string
+  bannerColor?: Prisma.StringWithAggregatesFilter<"User"> | string
   coins?: Prisma.IntWithAggregatesFilter<"User"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -416,6 +428,7 @@ export type UserCreateInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -443,6 +456,7 @@ export type UserUncheckedCreateInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -470,6 +484,7 @@ export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -497,6 +512,7 @@ export type UserUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -524,6 +540,7 @@ export type UserCreateManyInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -542,6 +559,7 @@ export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -560,6 +578,7 @@ export type UserUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -578,6 +597,7 @@ export type UserCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  bannerColor?: Prisma.SortOrder
   coins?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -600,6 +620,7 @@ export type UserMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  bannerColor?: Prisma.SortOrder
   coins?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -618,6 +639,7 @@ export type UserMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  bannerColor?: Prisma.SortOrder
   coins?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -844,6 +866,7 @@ export type UserCreateWithoutSessionsInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -870,6 +893,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -912,6 +936,7 @@ export type UserUpdateWithoutSessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -938,6 +963,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -964,6 +990,7 @@ export type UserCreateWithoutAccountsInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -990,6 +1017,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1032,6 +1060,7 @@ export type UserUpdateWithoutAccountsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1058,6 +1087,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1084,6 +1114,7 @@ export type UserCreateWithoutCardsInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1110,6 +1141,7 @@ export type UserUncheckedCreateWithoutCardsInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1160,6 +1192,7 @@ export type UserScalarWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringFilter<"User"> | string
+  bannerColor?: Prisma.StringFilter<"User"> | string
   coins?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -1178,6 +1211,7 @@ export type UserCreateWithoutUserCardsInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1204,6 +1238,7 @@ export type UserUncheckedCreateWithoutUserCardsInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1246,6 +1281,7 @@ export type UserUpdateWithoutUserCardsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1272,6 +1308,7 @@ export type UserUncheckedUpdateWithoutUserCardsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1298,6 +1335,7 @@ export type UserCreateWithoutSentTradesInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1324,6 +1362,7 @@ export type UserUncheckedCreateWithoutSentTradesInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1355,6 +1394,7 @@ export type UserCreateWithoutReceivedTradesInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1381,6 +1421,7 @@ export type UserUncheckedCreateWithoutReceivedTradesInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1423,6 +1464,7 @@ export type UserUpdateWithoutSentTradesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1449,6 +1491,7 @@ export type UserUncheckedUpdateWithoutSentTradesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1486,6 +1529,7 @@ export type UserUpdateWithoutReceivedTradesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1512,6 +1556,7 @@ export type UserUncheckedUpdateWithoutReceivedTradesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1538,6 +1583,7 @@ export type UserCreateWithoutClaimedEvolutionsInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1564,6 +1610,7 @@ export type UserUncheckedCreateWithoutClaimedEvolutionsInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1606,6 +1653,7 @@ export type UserUpdateWithoutClaimedEvolutionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1632,6 +1680,7 @@ export type UserUncheckedUpdateWithoutClaimedEvolutionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1658,6 +1707,7 @@ export type UserCreateWithoutFriendshipsInitiatedInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1684,6 +1734,7 @@ export type UserUncheckedCreateWithoutFriendshipsInitiatedInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1715,6 +1766,7 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1741,6 +1793,7 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   email: string
   emailVerified?: boolean
   image?: string
+  bannerColor?: string
   coins?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1783,6 +1836,7 @@ export type UserUpdateWithoutFriendshipsInitiatedInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1809,6 +1863,7 @@ export type UserUncheckedUpdateWithoutFriendshipsInitiatedInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1846,6 +1901,7 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1872,6 +1928,7 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1898,6 +1955,7 @@ export type UserUpdateWithoutCardsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1924,6 +1982,7 @@ export type UserUncheckedUpdateWithoutCardsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1950,6 +2009,7 @@ export type UserUncheckedUpdateManyWithoutCardsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.StringFieldUpdateOperationsInput | string
+  bannerColor?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2071,6 +2131,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  bannerColor?: boolean
   coins?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2099,6 +2160,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  bannerColor?: boolean
   coins?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2117,6 +2179,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  bannerColor?: boolean
   coins?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2135,6 +2198,7 @@ export type UserSelectScalar = {
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  bannerColor?: boolean
   coins?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2145,7 +2209,7 @@ export type UserSelectScalar = {
   banExpires?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "username" | "displayUsername" | "email" | "emailVerified" | "image" | "coins" | "createdAt" | "updatedAt" | "lastHourlyRewardAt" | "role" | "banned" | "banReason" | "banExpires", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "username" | "displayUsername" | "email" | "emailVerified" | "image" | "bannerColor" | "coins" | "createdAt" | "updatedAt" | "lastHourlyRewardAt" | "role" | "banned" | "banReason" | "banExpires", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -2182,6 +2246,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     email: string
     emailVerified: boolean
     image: string
+    bannerColor: string
     coins: number
     createdAt: Date
     updatedAt: Date
@@ -2629,6 +2694,7 @@ export interface UserFieldRefs {
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly image: Prisma.FieldRef<"User", 'String'>
+  readonly bannerColor: Prisma.FieldRef<"User", 'String'>
   readonly coins: Prisma.FieldRef<"User", 'Int'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
