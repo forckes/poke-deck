@@ -3,6 +3,7 @@ import { useSignUp } from './hooks/useSignUp'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { Turnstile } from '@marsidev/react-turnstile'
+import { Loader2 } from 'lucide-react'
 
 const SignUp = () => {
 	const { state, functions } = useSignUp()
@@ -71,7 +72,9 @@ const SignUp = () => {
 					/>
 				</div>
 
-				<Button className='w-full'>Sign Up</Button>
+				<Button className={`w-full ${state.isLoading && 'opacity-80'}`}>
+					Sign Up {state.isLoading && <Loader2 className='animate-spin' />}
+				</Button>
 			</form>
 
 			<p className='flex justify-center gap-2 items-center mt-4'>

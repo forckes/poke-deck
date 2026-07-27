@@ -5,6 +5,7 @@ import { useState } from 'react'
 export const useSignIn = () => {
 	const router = useRouter()
 	const [error, setError] = useState<string | null>(null)
+	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
 
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -15,6 +16,8 @@ export const useSignIn = () => {
 			setError('Please complete the CAPTCHA')
 			return
 		}
+
+		setIsLoading(true)
 
 		const formData = new FormData(e.currentTarget)
 		const identifier = formData.get('identifier') as string
@@ -44,13 +47,14 @@ export const useSignIn = () => {
 
 		if (res.error) {
 			setError(res.error.message || 'Something went wrong.')
+			setIsLoading(false)
 		} else {
 			router.push('/')
 		}
 	}
 
 	return {
-		state: { error },
+		state: { error, isLoading },
 		functions: { handleSubmit, setTurnstileToken, setError },
 	}
 }

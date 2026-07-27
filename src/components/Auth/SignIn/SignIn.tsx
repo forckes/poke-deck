@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button'
 import { useSignIn } from './hooks/useSignIn'
 import { Input } from '@/components/ui/input'
 import { Turnstile } from '@marsidev/react-turnstile'
+import { Loader2 } from 'lucide-react'
 
 const SignIn = () => {
 	const { state, functions } = useSignIn()
@@ -56,7 +57,9 @@ const SignIn = () => {
 					/>
 				</div>
 
-				<Button className='w-full'>Sign In</Button>
+				<Button className={`w-full ${state.isLoading && 'opacity-80'}`}>
+					Sign In {state.isLoading && <Loader2 className='animate-spin' />}
+				</Button>
 			</form>
 		</div>
 	)
