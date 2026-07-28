@@ -10,7 +10,7 @@ const CollectionPage = () => {
 	return (
 		<div className='flex flex-col items-center w-250 mx-auto mt-20'>
 			<div className='w-full mb-4'>
-				<h2 className='text-3xl md:text-4xl font-black text-foreground/90 shiny-purple inline-block'>
+				<h2 className='text-3xl md:text-6xl font-black text-foreground/90 shiny-purple inline-block mb-4'>
 					POKÉMON COLLECTION
 				</h2>
 			</div>

@@ -10,7 +10,6 @@ import SortSelector from '@/components/SortSelector'
 import { BackButton } from '@/components/BackButton'
 import { EvolutionRewardButton } from '@/components/PokemonDetailData/EvolutionRewardButton'
 import { getPokemonDetailData } from './_hooks/getPokemonDetailData'
-import { PokemonType } from '@/constants/pokemonTypes'
 
 export default async function PokemonDetailPage(props: {
 	params: Promise<{ id: string }>
