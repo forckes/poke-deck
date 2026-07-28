@@ -37,7 +37,7 @@ export function ProfileBanner({
 		setIsSuccess(false)
 	}
 
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
 		event.preventDefault()
 		setError('')
 
