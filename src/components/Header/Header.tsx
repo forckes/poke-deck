@@ -120,6 +120,7 @@ function Header() {
 							{ name: 'My Deck', href: '/deck' },
 							{ name: 'Packs', href: '/packs' },
 							{ name: 'Trades', href: '/trades' },
+							{ name: 'Leaderboard', href: '/leaderboard' },
 						].map(item => {
 							const isActive =
 								pathname === item.href || pathname?.startsWith(item.href + '/')
