@@ -11,7 +11,7 @@ const CardShowcase = ({ pokemonIds }: { pokemonIds: number[] }) => {
 	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
-		const fetchPokemonSprites = async () => {
+		const fetchPokemonCards = async () => {
 			try {
 				setIsLoading(true)
 				const res = await getPokemonCardsByIds(pokemonIds)
@@ -26,7 +26,7 @@ const CardShowcase = ({ pokemonIds }: { pokemonIds: number[] }) => {
 			}
 		}
 
-		fetchPokemonSprites()
+		fetchPokemonCards()
 	}, [pokemonIds])
 
 	if (isLoading) return <div>Loading cards...</div>
