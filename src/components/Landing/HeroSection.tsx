@@ -1,93 +1,60 @@
 'use client'
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import Lightfall from '@/components/Lightfall'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { motion, Variants } from 'framer-motion'
+import { motion } from 'framer-motion'
 import GradientText from '../GradientText'
 import LogoLoop from '../LogoLoop'
-import { useEffect, useState } from 'react'
-import { getPokemonsSpritesByIds } from '@/utils/helpers/getPokemonsSpritesByIds'
+import PokemonCardBack from '../PokemonCard/PokemonCardBack'
+import PokemonFlipCard from '../PokemonCard/PokemonFlipCard'
+import { PokemonCard } from '../PokemonCard/PokemonCard'
+import { useHeroSection } from './hooks/useHeroSection'
 
 const HeroSection = ({ amount }: { amount: number }) => {
-	const [pokemonSprites, setPokemonSprites] = useState<string[]>([])
-	const [pokemonIds, setPokemonIds] = useState<number[]>([])
-	const [isLoading, setIsLoading] = useState(true)
-
-	const mappedLogos = pokemonSprites.map((spriteUrl, index) => ({
-		src: spriteUrl,
-		alt: `Pokemon ${pokemonIds[index] || index}`,
-		href: `#`,
-	}))
-
-	useEffect(() => {
-		const fetchPokemonSprites = async () => {
-			try {
-				setIsLoading(true)
-				const res = await getPokemonsSpritesByIds(amount)
-
-				if (res) {
-					setPokemonSprites(res.sprites)
-					setPokemonIds(res.ids)
-				}
-			} catch (error) {
-				console.error('Error while loading Logo loop:', error)
-			} finally {
-				setIsLoading(false)
-			}
-		}
-
-		fetchPokemonSprites()
-	}, [amount])
-
-	const containerVariants: Variants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.25,
-			},
-		},
-	}
-
-	const itemVariants: Variants = {
-		hidden: {
-			opacity: 0,
-			y: 40,
-		},
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.8,
-				ease: [0.22, 1, 0.36, 1] as any,
-			},
-		},
-	}
+	const { state, status } = useHeroSection(
+		amount,
+		[10000, 1361, 2622, 1211, 10100],
+	)
 
 	return (
 		<div className='relative min-h-[calc(100vh-60px)] w-full flex items-center justify-center p-6 overflow-hidden flex-col'>
-			<div className='absolute inset-0 z-0 pointer-events-none will-change-transform transform-gpu'>
-				<Lightfall
-					backgroundColor='#432aed'
-					density={0.7}
-					glow={1}
-					speed={0.5}
-					opacity={1}
-				/>
+			<div className='absolute inset-0 flex items-center justify-center pointer-events-none z-0 perspective-1000 bottom-30'>
+				{state.cards.map(card => {
+					const pokemon = state.data?.[card.dataIndex]
+
+					return (
+						<motion.div
+							key={card.id}
+							className={`absolute brightness-50 ${card.className}`}
+							animate={card.animation}
+							transition={{
+								duration: card.duration,
+								repeat: Infinity,
+								ease: 'easeInOut',
+							}}
+						>
+							<PokemonFlipCard isFlipped={!status.isCardFlipped}>
+								{pokemon?.success ? (
+									<PokemonCard pokemonData={pokemon.data} />
+								) : (
+									<PokemonCardBack />
+								)}
+							</PokemonFlipCard>
+						</motion.div>
+					)
+				})}
 			</div>
 
 			<motion.main
 				initial='hidden'
 				animate='visible'
-				variants={containerVariants}
-				className='relative z-10 flex flex-col items-center justify-center text-white w-full max-w-4xl mx-auto'
+				variants={state.containerVariants}
+				className='relative z-10 flex flex-col items-center justify-center text-white w-full max-w-4xl mx-auto drop-shadow-lg'
 			>
 				<div className='flex flex-col gap-4 items-center justify-center text-center'>
-					<motion.h1 variants={itemVariants} className=''>
+					<motion.h1 variants={state.itemVariants} className=''>
 						<GradientText
-							colors={['#ECCCFF', '#a383e8', '#ECCCFF', '#a383e8']}
+							colors={['#F1E5FF', '#D8B4FE', '#E9D5FF', '#C4B5FD']}
 							animationSpeed={4}
 							showBorder={false}
 							yoyo={false}
@@ -98,8 +65,8 @@ const HeroSection = ({ amount }: { amount: number }) => {
 					</motion.h1>
 
 					<motion.p
-						variants={itemVariants}
-						className='text-sm md:text-lg font-medium max-w-2xl text-neutral-200/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] leading-relaxed mt-2'
+						variants={state.itemVariants}
+						className='text-sm md:text-lg font-medium max-w-2xl text-neutral-100 drop-shadow-[0_3px_10px_rgba(0,0,0,0.9)] leading-relaxed mt-2'
 					>
 						Stop just looking at cards - start owning them. Collect your
 						favorite pocket monsters, trade live with other trainers, and
@@ -107,8 +74,8 @@ const HeroSection = ({ amount }: { amount: number }) => {
 						Legendary?
 					</motion.p>
 
-					<motion.div variants={itemVariants} className='flex gap-4 mt-8'>
-						<Button asChild size='lg' className='hover:bg-primary/90'>
+					<motion.div variants={state.itemVariants} className='flex gap-4 mt-8'>
+						<Button asChild size='lg' className='hover:bg-primary/90 shadow-lg'>
 							<Link href='/packs'>Open Packs</Link>
 						</Button>
 
@@ -116,17 +83,18 @@ const HeroSection = ({ amount }: { amount: number }) => {
 							asChild
 							size='lg'
 							variant='secondary'
-							className='hover:bg-white/90'
+							className='hover:bg-white/90 shadow-lg'
 						>
 							<Link href='/collection'>View Your Deck</Link>
 						</Button>
 					</motion.div>
 				</div>
 			</motion.main>
-			<div className='w-full min-h-20 flex items-center justify-center overflow-hidden -mb-42 mt-42'>
-				{!isLoading && mappedLogos.length > 0 && (
+
+			<div className='w-full min-h-20 flex items-center justify-center overflow-hidden -mb-42 mt-42 relative z-10'>
+				{!status.isLoading && state.mappedLogos.length > 0 && (
 					<LogoLoop
-						logos={mappedLogos}
+						logos={state.mappedLogos}
 						speed={40}
 						direction='left'
 						gap={40}
