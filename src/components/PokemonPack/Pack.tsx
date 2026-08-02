@@ -20,6 +20,7 @@ export default function PackOpener({ state, status, functions }: Props) {
 			{(state.step === 'idle' || state.step === 'opening') && (
 				<div className='flex flex-col items-center'>
 					<button
+						aria-label='Open Pack'
 						onClick={() =>
 							functions.handleBuyAndOpenPack(state.selectedPackType)
 						}
