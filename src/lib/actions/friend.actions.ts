@@ -121,7 +121,9 @@ export async function getPendingRequestsAction() {
 		headers: await headers(),
 	})
 
-	if (!session) throw new Error('Unauthorized')
+	if (!session?.user) {
+		return { success: false, data: [] }
+	}
 
 	const userId = session.user.id
 
