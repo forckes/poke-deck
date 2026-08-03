@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { seedTestUserCoins, clearTestUserCards } from './helpers/seed'
+import { seedTestUserCoins } from './helpers/seed'
 import { getTestUser } from './helpers/test-user'
 
 test.beforeEach(async ({}, testInfo) => {
