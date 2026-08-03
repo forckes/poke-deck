@@ -15,6 +15,10 @@ jobs:
   test:
     timeout-minutes: 10
     runs-on: ubuntu-latest
+
+    container:
+      image: mcr.microsoft.com/playwright:v1.51.0-noble
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -24,6 +28,7 @@ jobs:
         id: vercel_deployment
         with:
           environment: ${{ github.event_name == 'pull_request' && 'preview' || 'production' }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -34,27 +39,14 @@ jobs:
       - name: Install Node Modules
         run: npm ci
 
-      - name: Cache Playwright Browsers
-        id: cache-playwright
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
-      - name: Install Playwright OS Dependencies
-        run: npx playwright install-deps chromium
-
-      - name: Install Playwright Chromium
-        if: steps.cache-playwright.outputs.cache-hit != 'true'
-        run: npx playwright install chromium
-
       - name: Run Playwright Tests
         run: npx playwright test --project=chromium
         env:
-          PLAYWRIGHT_TEST_BASE_URL: ${{ steps.vercel_deployment.outputs.url }}
+          PLAYWRIGHT_TEST_BASE_URL: ${{ steps.vercel_deployment.outputs.deployment-url }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
-          BETTER_AUTH_URL: ${{ steps.vercel_deployment.outputs.url }}
+          BETTER_AUTH_URL: ${{ steps.vercel_deployment.outputs.deployment-url }}
           NEXT_PUBLIC_E2E_TEST: 'true'
           E2E_TEST: 'true'
           E2E_CHROMIUM_EMAIL: ${{ secrets.E2E_CHROMIUM_EMAIL }}
