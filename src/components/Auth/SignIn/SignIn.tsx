@@ -6,6 +6,7 @@ import { Loader2 } from 'lucide-react'
 
 const SignIn = () => {
 	const { state, functions } = useSignIn()
+	const isTestEnv = process.env.NEXT_PUBLIC_E2E_TEST === 'true'
 
 	return (
 		<div className='w-full bg-black/40 backdrop-blur-md p-8 rounded-2xl border border-neutral-800 shadow-2xl'>
@@ -41,20 +42,21 @@ const SignIn = () => {
 						className='border-neutral-700 placeholder:text-neutral-400 focus:outline-none focus:border-primary/50 h-11 placeholder:text-[16px]'
 					/>
 				</div>
-
 				<div className='my-2 flex justify-center w-full'>
-					<Turnstile
-						siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-						onSuccess={token => functions.setTurnstileToken(token)}
-						onExpire={() => functions.setTurnstileToken(null)}
-						onError={() =>
-							functions.setError('CAPTCHA Error, try to reload page.')
-						}
-						options={{
-							theme: 'dark',
-							size: 'flexible',
-						}}
-					/>
+					{!isTestEnv && (
+						<Turnstile
+							siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+							onSuccess={token => functions.setTurnstileToken(token)}
+							onExpire={() => functions.setTurnstileToken(null)}
+							onError={() =>
+								functions.setError('CAPTCHA Error, try to reload page.')
+							}
+							options={{
+								theme: 'dark',
+								size: 'flexible',
+							}}
+						/>
+					)}
 				</div>
 
 				<Button className={`w-full ${state.isLoading && 'opacity-80'}`}>

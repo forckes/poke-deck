@@ -8,11 +8,14 @@ export const useSignIn = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
 
+	const isTestEnv = process.env.NEXT_PUBLIC_E2E_TEST === 'true'
+	const tokenToSend = isTestEnv ? 'mock-e2e-token' : turnstileToken
+
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault()
 		setError(null)
 
-		if (!turnstileToken) {
+		if (!tokenToSend) {
 			setError('Please complete the CAPTCHA')
 			return
 		}
@@ -31,7 +34,7 @@ export const useSignIn = () => {
 					password,
 					fetchOptions: {
 						headers: {
-							'x-captcha-response': turnstileToken,
+							'x-captcha-response': tokenToSend,
 						},
 					},
 				})
@@ -40,7 +43,7 @@ export const useSignIn = () => {
 					password,
 					fetchOptions: {
 						headers: {
-							'x-captcha-response': turnstileToken,
+							'x-captcha-response': tokenToSend,
 						},
 					},
 				})

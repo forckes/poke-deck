@@ -14,10 +14,14 @@ export const auth = betterAuth({
 	plugins: [
 		username(),
 		admin({ defaultRole: 'user', adminRoles: ['admin'] }),
-		captcha({
-			provider: 'cloudflare-turnstile',
-			secretKey: process.env.TURNSTILE_SECRET_KEY!,
-		}),
+		...(process.env.E2E_TEST === 'true'
+			? []
+			: [
+					captcha({
+						provider: 'cloudflare-turnstile',
+						secretKey: process.env.TURNSTILE_SECRET_KEY!,
+					}),
+				]),
 		dash(),
 	],
 })
