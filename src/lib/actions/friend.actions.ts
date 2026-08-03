@@ -122,7 +122,7 @@ export async function getPendingRequestsAction() {
 	})
 
 	if (!session?.user) {
-		return { success: false, data: [] }
+		return { pendingFriends: [], totalCount: 0 }
 	}
 
 	const userId = session.user.id
