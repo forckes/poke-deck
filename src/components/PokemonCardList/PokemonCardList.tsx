@@ -98,6 +98,7 @@ const PokemonCardList = ({ targetUserId, scope }: Props) => {
 							>
 								{rowItems.map((card, index) => (
 									<div
+										data-testid={`card-${index}`}
 										key={
 											card?.id
 												? `card-${card.id}-${index}`

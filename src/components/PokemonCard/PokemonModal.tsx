@@ -202,6 +202,7 @@ export function PokemonModal() {
 
 									<div className='flex items-center justify-center w-full'>
 										<Button
+											data-testid={`modal-inspect-button`}
 											className='grow group'
 											disabled={status.isPending}
 											onClick={functions.handleModalOpen}
