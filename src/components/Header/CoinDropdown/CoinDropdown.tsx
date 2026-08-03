@@ -23,7 +23,10 @@ const CoinDropdown = ({ userId }: Props) => {
 			<PopoverTrigger asChild>
 				<div className='flex items-center justify-center py-2 px-4 rounded-md gap-2 bg-gray-200/50 hover:bg-primary/15 cursor-pointer transition-colors select-none'>
 					{status.isCoinsError && <p className='text-red-500 text-xs'>Error</p>}
-					<p className='font-semibold text-lg text-neutral-900'>
+					<p
+						data-testid='coins'
+						className='font-semibold text-lg text-neutral-900'
+					>
 						{state.coins}
 					</p>
 					<Image src='/profile/coin.png' alt='coins' width={24} height={24} />

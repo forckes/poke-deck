@@ -39,7 +39,9 @@ export function EvolutionRewardButton({
 		setLoading(false)
 
 		if (result.success) {
-			toast.success(`Reward of ${coinsAmount} coins claimed`)
+			toast.success(`Reward of ${coinsAmount} coins claimed`, {
+				testId: 'evolution-reward',
+			})
 			addCoinsLocal(coinsAmount)
 			router.refresh()
 		} else {
