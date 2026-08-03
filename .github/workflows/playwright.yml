@@ -23,8 +23,7 @@ jobs:
         uses: vercel/wait-for-deployment-action@main
         id: vercel_deployment
         with:
-          environment: preview
-
+          environment: ${{ github.event_name == 'pull_request' && 'preview' || 'production' }}
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
