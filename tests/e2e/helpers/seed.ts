@@ -8,7 +8,7 @@ export async function seedTestUserCoins(email: string, coins = 10000) {
 		},
 	})
 }
-
+//
 export async function clearTestUserCards(email: string) {
 	const user = await prisma.user.findUnique({
 		where: { email },
