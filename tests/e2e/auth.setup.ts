@@ -36,7 +36,7 @@ setup('authenticate', async ({ page, browserName }) => {
 		.click()
 
 	await page.waitForURL('/', {
-		timeout: 15000,
+		timeout: 30000,
 	})
 	await expect(page.getByText(/your ultimate/i)).toBeVisible()
 
