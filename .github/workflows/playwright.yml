@@ -45,6 +45,9 @@ jobs:
       - name: Build (Vercel)
         if: github.event_name == 'push'
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
 
       - name: Deploy prebuilt (as preview)
         if: github.event_name == 'push'
