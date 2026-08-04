@@ -3,10 +3,10 @@ import { useSignIn } from './hooks/useSignIn'
 import { Input } from '@/components/ui/input'
 import { Turnstile } from '@marsidev/react-turnstile'
 import { Loader2 } from 'lucide-react'
+import { isE2E } from '@/utils/isE2E'
 
 const SignIn = () => {
 	const { state, functions } = useSignIn()
-	const isTestEnv = process.env.NEXT_PUBLIC_E2E_TEST === 'true'
 
 	return (
 		<div className='w-full bg-black/40 backdrop-blur-md p-8 rounded-2xl border border-neutral-800 shadow-2xl'>
@@ -43,7 +43,7 @@ const SignIn = () => {
 					/>
 				</div>
 				<div className='my-2 flex justify-center w-full'>
-					{!isTestEnv && (
+					{!isE2E && (
 						<Turnstile
 							siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
 							onSuccess={token => functions.setTurnstileToken(token)}

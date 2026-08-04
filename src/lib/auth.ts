@@ -3,6 +3,7 @@ import { prismaAdapter } from 'better-auth/adapters/prisma'
 import { admin, captcha, username } from 'better-auth/plugins'
 import prisma from '@/lib/prisma'
 import { dash } from '@better-auth/infra'
+import { isE2E } from '@/utils/isE2E'
 
 export const auth = betterAuth({
 	database: prismaAdapter(prisma, {
@@ -14,7 +15,7 @@ export const auth = betterAuth({
 	plugins: [
 		username(),
 		admin({ defaultRole: 'user', adminRoles: ['admin'] }),
-		...(process.env.E2E_TEST === 'true'
+		...(isE2E
 			? []
 			: [
 					captcha({

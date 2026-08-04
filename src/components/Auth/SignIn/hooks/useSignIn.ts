@@ -1,4 +1,5 @@
 import { signIn } from '@/lib/auth-client'
+import { isE2E } from '@/utils/isE2E'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -8,8 +9,7 @@ export const useSignIn = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
 
-	const isTestEnv = process.env.NEXT_PUBLIC_E2E_TEST === 'true'
-	const tokenToSend = isTestEnv ? 'mock-e2e-token' : turnstileToken
+	const tokenToSend = isE2E ? 'mock-e2e-token' : turnstileToken
 
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault()

@@ -19,15 +19,48 @@ jobs:
     container:
       image: mcr.microsoft.com/playwright:v1.62.1-noble
 
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Await Vercel Deployment
+      - name: Await Vercel Preview Deployment (PR)
+        if: github.event_name == 'pull_request'
         uses: vercel/wait-for-deployment-action@main
-        id: vercel_deployment
+        id: vercel_pr_deployment
         with:
-          environment: ${{ github.event_name == 'pull_request' && 'preview' || 'production' }}
+          environment: preview
+
+      - name: Install Vercel CLI
+        if: github.event_name == 'push'
+        run: npm install -g vercel@latest
+
+      - name: Pull Vercel Preview Env
+        if: github.event_name == 'push'
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build (Vercel)
+        if: github.event_name == 'push'
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy prebuilt (as preview)
+        if: github.event_name == 'push'
+        id: vercel_main_deploy
+        run: |
+          url=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          echo "deployment-url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Set Deployment URL
+        id: deployment_url
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "url=${{ steps.vercel_pr_deployment.outputs.deployment-url }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "url=${{ steps.vercel_main_deploy.outputs.deployment-url }}" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -42,13 +75,11 @@ jobs:
       - name: Run Playwright Tests
         run: npx playwright test --project=chromium
         env:
-          PLAYWRIGHT_TEST_BASE_URL: ${{ steps.vercel_deployment.outputs.deployment-url }}
+          PLAYWRIGHT_TEST_BASE_URL: ${{ steps.deployment_url.outputs.url }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DIRECT_URL: ${{ secrets.DIRECT_URL }}
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
-          BETTER_AUTH_URL: ${{ steps.vercel_deployment.outputs.deployment-url }}
-          NEXT_PUBLIC_E2E_TEST: 'true'
-          E2E_TEST: 'true'
+          BETTER_AUTH_URL: ${{ steps.deployment_url.outputs.url }}
           E2E_CHROMIUM_EMAIL: ${{ secrets.E2E_CHROMIUM_EMAIL }}
           E2E_CHROMIUM_PASSWORD: ${{ secrets.E2E_CHROMIUM_PASSWORD }}
           E2E_FIREFOX_EMAIL: ${{ secrets.E2E_FIREFOX_EMAIL }}
@@ -63,3 +94,7 @@ jobs:
           name: playwright-artifacts-failure
           path: playwright-report/
           retention-days: 14
+
+      - name: Promote to Production
+        if: github.event_name == 'push' && success()
+        run: vercel promote ${{ steps.deployment_url.outputs.url }} --token=${{ secrets.VERCEL_TOKEN }}
