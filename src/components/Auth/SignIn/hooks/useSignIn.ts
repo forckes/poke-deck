@@ -11,15 +11,6 @@ export const useSignIn = () => {
 
 	const tokenToSend = isE2E ? 'mock-e2e-token' : turnstileToken
 
-	console.log(
-		'[SignIn hook] isE2E:',
-		isE2E,
-		'siteKey:',
-		process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
-		'tokenToSend:',
-		tokenToSend,
-	)
-
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault()
 		setError(null)
