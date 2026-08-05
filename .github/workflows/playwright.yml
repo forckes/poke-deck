@@ -48,6 +48,8 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DIRECT_URL: ${{ secrets.DIRECT_URL }}
+          NEXT_PUBLIC_VERCEL_ENV: 'preview'
+          VERCEL_ENV: 'preview'
 
       - name: Deploy prebuilt (as preview)
         if: github.event_name == 'push'
