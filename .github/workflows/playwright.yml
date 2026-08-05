@@ -102,4 +102,4 @@ jobs:
 
       - name: Promote to Production
         if: github.event_name == 'push' && success()
-        run: vercel promote ${{ steps.deployment_url.outputs.url }} --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel promote ${{ steps.deployment_url.outputs.url }} --yes --token=${{ secrets.VERCEL_TOKEN }}
