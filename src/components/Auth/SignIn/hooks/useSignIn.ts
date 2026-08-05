@@ -11,7 +11,7 @@ export const useSignIn = () => {
 	const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
 	console.log('[DEBUG Turnstile] raw siteKey:', siteKey)
 	console.log('[DEBUG Turnstile] typeof siteKey:', typeof siteKey)
-	console.log('[DEBUG Turnstile] isE2E:', process.env.NEXT_PUBLIC_E2E_TEST)
+	console.log('[DEBUG Cleaned Key length]:', siteKey!.length)
 	const tokenToSend = isE2E ? 'mock-e2e-token' : turnstileToken
 
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
