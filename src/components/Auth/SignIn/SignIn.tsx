@@ -8,6 +8,13 @@ import { isE2E } from '@/utils/isE2E'
 const SignIn = () => {
 	const { state, functions } = useSignIn()
 
+	console.log(
+		'[SignIn] isE2E:',
+		isE2E,
+		'siteKey:',
+		process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+	)
+
 	return (
 		<div className='w-full bg-black/40 backdrop-blur-md p-8 rounded-2xl border border-neutral-800 shadow-2xl'>
 			<h1 className='text-3xl font-extrabold tracking-tight mb-6 text-center'>

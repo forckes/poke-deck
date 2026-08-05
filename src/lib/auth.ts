@@ -4,7 +4,7 @@ import { admin, captcha, username } from 'better-auth/plugins'
 import prisma from '@/lib/prisma'
 import { dash } from '@better-auth/infra'
 import { isE2E } from '@/utils/isE2E'
-
+console.log('auth isE2E:', isE2E)
 export const auth = betterAuth({
 	database: prismaAdapter(prisma, {
 		provider: 'postgresql',
