@@ -10,7 +10,11 @@ export const auth = betterAuth({
 		trustedProxyHeaders: true,
 	},
 	baseURL: {
-		allowedHosts: ['https://poke-deck-xi.vercel.app', '*.vercel.app'],
+		allowedHosts: [
+			'https://poke-deck-xi.vercel.app',
+			'*.vercel.app',
+			'localhost:3000',
+		],
 	},
 	database: prismaAdapter(prisma, {
 		provider: 'postgresql',
