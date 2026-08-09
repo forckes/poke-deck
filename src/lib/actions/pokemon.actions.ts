@@ -101,18 +101,20 @@ export async function sellPokemonCardAction(cardId: number) {
 				}
 			}
 
-			const tradeItem = await tx.tradeItem.findFirst({
-				where: { userCardId: userCard.id },
-			})
-
-			const isLinkedToTrade = await tx.trade.findFirst({
+			const activeTrade = await tx.trade.findFirst({
 				where: {
-					id: tradeItem?.tradeId,
-					OR: [{ status: 'PENDING' }, { status: 'SENDED' }],
+					status: {
+						in: ['PENDING', 'SENDED'],
+					},
+					items: {
+						some: {
+							userCardId: userCard.id,
+						},
+					},
 				},
 			})
 
-			if (isLinkedToTrade) {
+			if (activeTrade) {
 				return {
 					success: false,
 					error: 'This card is currently locked in an active trade',
