@@ -129,10 +129,7 @@ export const usePokemonPack = () => {
 		try {
 			toast.success('Successfully bought pack of cards')
 
-			const [result] = await Promise.all([
-				buyAndOpenPackAction(packType),
-				new Promise(resolve => setTimeout(resolve, 1000)),
-			])
+			const [result] = await Promise.all([buyAndOpenPackAction(packType)])
 
 			if (result.success && result.cards) {
 				setIsBursting(true)

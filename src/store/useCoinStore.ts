@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface CoinState {
+export interface CoinState {
 	coins: number
 	setCoins: (coins: number) => void
 
