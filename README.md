@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Poke-Deck
 
-## Getting Started
+> A production-ready full-stack web application designed for interactive digital card collecting and deck management, handling complex game logic across 3,000+ card assets.
 
-First, run the development server:
+**🔗 Live Demo:** [poke-deck](https://poke-deck-xi.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚡ Cool Features & Engineering Highlights
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* **3D Interactive Experience & Animations:** Unique, custom-built UI featuring immersive 3D card interactions, fluid animations, and micro-interactions that elevate the user experience.
+* **3,000+ Dynamic Objects:** Fast client-side searching, sorting, and type-based filtering without performance lag or UI freezing.
+* **Complex Deck Building Logic:** Real-time state synchronization that tracks deck constraints, card limits, and energy/type distribution.
+* **Multi-Layer Automated Testing:** Comprehensive test coverage — unit tests for edge-case helper logic, integration tests for key hooks, and E2E Playwright flows ensuring smooth user journeys.
+* **Strict Type Safety:** Fully typed end-to-end stack with TypeScript, Prisma models, and strict API response schemas.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🎯 About The Project
 
-To learn more about Next.js, take a look at the following resources:
+**Poke-Deck** was built for dynamic card game enthusiasts and collectors who need a fast, responsive, and intuitive interface to explore, filter, build, and test custom card decks. 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Dealing with thousands of card items and intricate game rules requires heavy data management and near-instant UI updates. Poke-Deck addresses this by combining a robust database layer with highly optimized client-side state handling.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🛠 Tech Stack & Architecture
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* **Frontend:** Next.js (App Router), React, TypeScript, Tailwind CSS
+* **Backend & Database:** Node.js, PostgreSQL, Prisma ORM
+* **State Management & Data:** Custom React hooks, optimized context layer for fast client-side sorting/filtering
+* **Testing Suite:** Vitest, React Testing Library (Unit/Integration), Playwright (E2E)
+* **DevOps & Infrastructure:** Docker, CI/CD automated GitHub workflows, Vercel deployment
